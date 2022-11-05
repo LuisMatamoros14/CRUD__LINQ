@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="GestionPedidos" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=WATERSIDE14;Initial Catalog=GestionPedidos;Persist Security Info=True;User ID=sa" SettingsObjectName="CRUD__LINQ.Properties.Settings" SettingsPropertyName="GestionPedidosConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Empresas" Member="Empresas">
+    <Type Name="Empresas">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Empresas_Empleados" Member="Empleados" ThisKey="Id" OtherKey="EmpresaId" Type="Empleados" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Empleados" Member="Empleados">
+    <Type Name="Empleados">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EmpresaId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Empleados_CargosEmpelados" Member="CargosEmpelados" ThisKey="Id" OtherKey="EmpleadoId" Type="CargosEmpelados" />
+      <Association Name="Empresas_Empleados" Member="Empresas" ThisKey="EmpresaId" OtherKey="Id" Type="Empresas" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cargos" Member="Cargos">
+    <Type Name="Cargos">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Cargos_CargosEmpelados" Member="CargosEmpelados" ThisKey="Id" OtherKey="CargoId" Type="CargosEmpelados" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CargosEmpelados" Member="CargosEmpelados">
+    <Type Name="CargosEmpelados">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmpleadoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CargoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Cargos_CargosEmpelados" Member="Cargos" ThisKey="CargoId" OtherKey="Id" Type="Cargos" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Empleados_CargosEmpelados" Member="Empleados" ThisKey="EmpleadoId" OtherKey="Id" Type="Empleados" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>
